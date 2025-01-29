@@ -32,6 +32,7 @@ export default function App() {
           Alert.alert('Error', 'Could not save steps');
         } else {
           Alert.alert('Success', 'Steps added to HealthKit');
+          setSteps('')
         }
       });
     });
