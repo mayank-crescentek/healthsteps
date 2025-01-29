@@ -32,7 +32,7 @@ export default function App() {
           Alert.alert('Error', 'Could not save steps');
         } else {
           Alert.alert('Success', 'Steps added to HealthKit');
-          setSteps('')
+          setSteps('');
         }
       });
     });
@@ -50,20 +50,18 @@ export default function App() {
         Scopes.FITNESS_BODY_WRITE,
       ],
     };
-    const startTime = moment().utc().valueOf() // 30 mins ago
-    const endTime = moment().utc().valueOf()
+    const startTime = moment().subtract(30, 'minutes').toISOString(); // 30 mins ago
+    const endTime = moment().toISOString();
 
     GoogleFit.authorize(options)
       .then(() => {
         const stepData = {
-          sessionName: "Morning Run",
+          sessionName: 'Morning Run',
           identifier: new Date().getTime().toString(), // Unique session ID
-          // startTime: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 minutes ago
           startDate: startTime, // 30 minutes ago
           endDate: endTime, // Now
           activityType: ActivityType.Walking,
-          steps: parseInt(steps, 10)
-          // activityType: 8,
+          steps: parseInt(steps, 10),
         };
         GoogleFit.saveWorkout(stepData)
           .then((abc) => {
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 24,
