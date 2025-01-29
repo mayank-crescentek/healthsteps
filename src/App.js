@@ -59,8 +59,8 @@ export default function App() {
           sessionName: "Morning Run",
           identifier: new Date().getTime().toString(), // Unique session ID
           // startTime: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 minutes ago
-          startTime: startTime, // 30 minutes ago
-          endTime: endTime, // Now
+          startDate: startTime, // 30 minutes ago
+          endDate: endTime, // Now
           activityType: ActivityType.Walking,
           steps: parseInt(steps, 10)
           // activityType: 8,
