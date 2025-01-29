@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Text1 from './components/common/Text';
 import { ThemeProvider } from '@shopify/restyle';
 import { theme } from './foundation/theme/theme';
 import { SafeAreaView, StatusBar, View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import AppleHealthKit from 'react-native-health';
 import GoogleFit, { ActivityType, Scopes } from 'react-native-google-fit';
 import moment from 'moment';
+
 export default function App() {
   const [steps, setSteps] = useState('');
 
@@ -16,26 +16,19 @@ export default function App() {
         write: [AppleHealthKit.Constants.Permissions.StepCount],
       },
     };
-    console.log('🚀 ~ addStepsToHealthKit ~ options:', options);
-
     AppleHealthKit.initHealthKit(options, (err) => {
-      console.log('🚀 ~ AppleHealthKit.initHealthKit ~ err:', err);
       if (err) {
-        console.log('Error initializing HealthKit:', err);
         Alert.alert('Error', 'HealthKit not initialized');
         return;
       }
-
       const stepSample = {
         value: parseInt(steps, 10),
         startDate: new Date().toISOString(),
         endDate: new Date().toISOString(),
       };
-      console.log('🚀 ~ AppleHealthKit.initHealthKit ~ stepSample:', stepSample);
 
       AppleHealthKit.saveSteps(stepSample, (err) => {
         if (err) {
-          console.log('Error saving steps:', err);
           Alert.alert('Error', 'Could not save steps');
         } else {
           Alert.alert('Success', 'Steps added to HealthKit');
@@ -45,9 +38,8 @@ export default function App() {
   };
 
   const addStepsToGoogleFit = async () => {
-    console.log('132123123');
     GoogleFit.checkIsAuthorized().then(() => {
-      console.log(GoogleFit.isAuthorized); // Then you can simply refer to `GoogleFit.isAuthorized` boolean.
+      console.log(GoogleFit.isAuthorized);
     });
     const options = {
       scopes: [
@@ -57,32 +49,21 @@ export default function App() {
         Scopes.FITNESS_BODY_WRITE,
       ],
     };
-    // const startTime = new Date(Date.now() - (30 * 60 * 1000)).getTime(); // 30 mins ago
-    // const endTime = new Date().getTime();
     const startTime = moment().utc().valueOf() // 30 mins ago
     const endTime = moment().utc().valueOf()
-    
-    console.log('🚀 ~ addStepsToGoogleFit ~ options:', moment().utc().valueOf());
-    console.log('🚀 ~ addStepsToGoogleFit ~ options:', options);
+
     GoogleFit.authorize(options)
       .then(() => {
         const stepData = {
-    //       sessionName: "Morning Run",
-    // sessionId: new Date().getTime().toString(), 
-    //       startDate: new Date(Date.now() - 30 * 60 * 1000).toISOString(),
-    //       endDate: new Date().toISOString(),
-    //       steps: parseInt(steps, 10),
-    sessionName: "Morning Run",
-    identifier: new Date().getTime().toString(), // Unique session ID
-    // startTime: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 minutes ago
-    startTime: startTime, // 30 minutes ago
-    endTime: endTime, // Now
-    activityType: ActivityType.Walking,
-    steps:parseInt(steps, 10)
-    // activityType: 8,
+          sessionName: "Morning Run",
+          identifier: new Date().getTime().toString(), // Unique session ID
+          // startTime: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 minutes ago
+          startTime: startTime, // 30 minutes ago
+          endTime: endTime, // Now
+          activityType: ActivityType.Walking,
+          steps: parseInt(steps, 10)
+          // activityType: 8,
         };
-        console.log('🚀 ~ .then ~ stepData:', stepData);
-
         GoogleFit.saveWorkout(stepData)
           .then((abc) => {
             console.log('🚀 ~ GoogleFit.saveWorkout ~ abc:', abc);
@@ -130,6 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: 'white'
   },
   title: {
     fontSize: 24,
