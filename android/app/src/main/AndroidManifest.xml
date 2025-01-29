@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+ <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
 
     <application
       android:name=".MainApplication"
@@ -22,5 +25,11 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
+      <meta-data
+    android:name="com.google.android.gms.fitness.APP_ID"
+    android:value="595600990071-96sv7tka7ra6av54ai8uvmisqgd1gsmp.apps.googleusercontent.com" />
     </application>
+    <queries>
+        <package android:name="com.google.android.apps.fitness" />
+    </queries>
 </manifest>
